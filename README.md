@@ -1,4 +1,4 @@
-# simple-qa
+# simple-qa-demo
 
 > A Vue.js project
 
