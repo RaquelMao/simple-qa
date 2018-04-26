@@ -11,7 +11,6 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex';
   /* eslint-disable no-alert */
   export default {
     name: 'Item',
@@ -22,18 +21,19 @@
       };
     },
     props: ['fatherComponent'],
-    computed: mapState([
-      'itemNum', // 第几题
-      'itemDetails', // 题目详情
-    ]),
+    computed: {
+      itemNum() {
+        return this.$store.getters.itemNum;
+      },
+      itemDetails() {
+        return this.$store.getters.itemDetails;
+      },
+    },
     methods: {
-      ...mapActions([
-        'addNum', 'initializeData',
-      ]),
       nextItem() {
         if (this.choosedNum !== null) {
           this.choosedNum = null;
-          this.addNum(this.choosedId);
+          this.$store.dispatch('AddNum', this.choosedId);
         } else {
           alert('您还没有选择答案');
         }
@@ -54,7 +54,7 @@
       },
       submitAnswer() {
         if (this.choosedNum !== null) {
-          this.addNum(this.choosedId);
+          this.$store.dispatch('AddNum', this.choosedId);
         } else {
           alert('您还没有完成');
         }
@@ -62,7 +62,7 @@
     },
     created() {
       if (this.fatherComponent === 'home') {
-        this.initializeData();
+        this.$store.dispatch('InitializeData');
       }
     },
   };
