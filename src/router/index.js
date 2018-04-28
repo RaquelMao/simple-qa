@@ -10,5 +10,10 @@ export default new Router({
       name: 'home',
       component: require('@/page/home').default,
     },
+    {
+      path: '/ending',
+      name: 'ending-page',
+      component: require('@/page/ending').default,
+    },
   ],
 });
